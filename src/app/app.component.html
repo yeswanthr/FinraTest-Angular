@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+  }
+
+  .content {
+    display: flex;
+    margin: 82px auto 32px;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  a,
+  a:visited,
+  a:hover {
+    color: #1976d2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #125699;
+  }
+
+
+  :host ::ng-deep .ui-table table {
+      width: auto;
+    }
+    :host ::ng-deep .ui-table-wrapper {
+      display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+
+
+</style>
+</head>
+<body>
+  <div class="toolbar" role="banner" style="justify-content: center !important;">
+    Combinations
+  </div>
+
+  <div class="content" role="main">
+    <p-toast position="top-center"></p-toast>
+
+  <div style="text-align: center;">
+    <p-progressSpinner *ngIf="isLoading"></p-progressSpinner>
+    <div class="" style="padding: 10px;">
+      <input id="input" type="text" size="22" placeholder="Enter a 7 or 10 digit number" pInputText [(ngModel)]="property">
+  </div>
+  <button pButton type="button" label="Generate Combinations" (click)="checkGridId()" ></button>
+    <div style="padding-top: 15px;" *ngIf="cars && cars.length > 0">
+    <p-table [columns]="cols" [value]="cars" [paginator]="true" [rows]="rowsPerPage"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [lazy]="true" (onLazyLoad)="loadCarsLazy(null, $event)" [totalRecords]="totalRecords"  [loading]="loading">
+    <!-- [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [totalRecords]="totalRecords"  [loading]="loading"> -->
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+  </div>
+</div>
+</body>
+</html>
+
+
+<router-outlet></router-outlet>
